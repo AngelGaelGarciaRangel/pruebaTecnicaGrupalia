@@ -12,6 +12,7 @@ interface Image {
   heartCount: number;
   commentCount: number;
   dislikeCount: number;
+  width: number;
   height: number;
 }
 

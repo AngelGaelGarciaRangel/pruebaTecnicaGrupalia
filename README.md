@@ -46,6 +46,8 @@
 ## Possible improvements 💪
 1. **Local/Session storage**: Save on local storage the "Hide" property to don't display images marked as "Hide" when you refresh the page.
 
+## Hope you like it 😊
+My [Linkedin](www.linkedin.com/in/angelgaelgarcia)🫶
 
 
 

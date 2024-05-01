@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { DropdownMenu } from "./DropdownMenu"; // Import the DropdownMenu component
 
 interface ImageProps {
   id: number;
@@ -17,7 +18,12 @@ interface ImageProps {
 
 const Image: FC<ImageProps> = (imageData) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-2 pb-4 m-4">
+    <div className="bg-white rounded-lg shadow-lg p-2 pb-4 m-4 relative">
+      {/* Dropdown Menu */}
+      <div className="absolute top-1 right-1  z-10 bg-transparent	">
+             <DropdownMenu {...imageData} />
+      </div>
+      {/* Image container */}
       <div
         style={{
           width: `${imageData.width}px`,
@@ -26,8 +32,9 @@ const Image: FC<ImageProps> = (imageData) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        className="bg-[#CED5FF] rounded-lg shadow-lg mx-auto" 
+        className="bg-[#CED5FF] rounded-lg shadow-lg mx-auto relative"
       >
+        {/* Image */}
         <img
           src={imageData.url}
           alt={`Image ${imageData.id}`}
@@ -40,6 +47,7 @@ const Image: FC<ImageProps> = (imageData) => {
         />
       </div>
 
+      {/* Stats section */}
       <div className="grid grid-cols-2 gap-2 mt-2">
         {/* Like button */}
         <div className="flex items-center justify-center bg-[#CED5FF] rounded-md p-1 text-[#2118FF]">

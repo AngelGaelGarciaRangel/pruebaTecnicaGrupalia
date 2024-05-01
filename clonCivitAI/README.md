@@ -1,30 +1,29 @@
-# React + TypeScript + Vite
+# Prueba Tecnica Grupalia -  Clon CivitAI
+## Hi Grupalia Team👋, here it is my code for yout technical assesment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## How to Use 💻
 
-Currently, two official plugins are available:
+1. **Clone the repository**:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    ```shell
+    git clone https://github.com/AngelGaelGarciaRangel/pruebaTecnicaGrupalia.git
+    ```
 
-## Expanding the ESLint configuration
+2. **Navigate to the project directory**:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+    ```shell
+    cd clonCivitAI
+    ```
 
-- Configure the top-level `parserOptions` property like this:
+3. **Install dependencies**:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+    ```shell
+    npm install
+    ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+4. **Start the development server**:
+
+    ```shell
+    npm run dev
+    ```
+5. **Open [http://localhost:5173/](http://localhost:5173/) to view it on the browser (the port number can change)**:

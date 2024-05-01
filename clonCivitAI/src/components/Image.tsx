@@ -1,21 +1,7 @@
 import { FC, useState } from "react";
 import { DropdownMenu } from "./DropdownMenu"; // Import the DropdownMenu component
+import {Image as ImageProps} from "../../Types/ImageType"
 
-interface ImageProps {
-    id: number;
-    url: string;
-    hash: string;
-    nsfw: boolean;
-    cryCount: number;
-    laughCount: number;
-    likeCount: number;
-    heartCount: number;
-    commentCount: number;
-    dislikeCount: number;
-    width: number;
-    height: number;
-    canSee: boolean;
-}
 
 const Image: FC<ImageProps> = (imageData) => {
     const [canSee, setCanSee] = useState(imageData.canSee);

@@ -1,31 +1,17 @@
 import React from "react";
 import { Image} from "./Image";
+import {Image as ImageProps} from "../../Types/ImageType"
 
-interface Image {
-  id: number;
-  url: string;
-  hash: string;
-  nsfw: boolean;
-  cryCount: number;
-  laughCount: number;
-  likeCount: number;
-  heartCount: number;
-  commentCount: number;
-  dislikeCount: number;
-  width: number;
-  height: number;
-  canSee: boolean;
-}
 
 interface MasonryGridProps {
-  images: Image[];
+  images: ImageProps[];
   columnCount: number;
 }
 
 const MasonryGrid: React.FC<MasonryGridProps> = ({ images, columnCount }) => {
   // Function to create the Masonry Layout (images of different heights)
-  function createMasonryLayout(images: Image[], columnCount: number): Image[][] {
-    const columns: Image[][] = Array.from({ length: columnCount }, () => []);
+  function createMasonryLayout(images: ImageProps[], columnCount: number): ImageProps[][] {
+    const columns: ImageProps[][] = Array.from({ length: columnCount }, () => []);
     images.forEach((image) => {
       const shortestColumnIndex = columns.reduce(
         (shortestIndex, column, index) => {

@@ -1,20 +1,5 @@
 import { FC, useState } from "react";
-
-interface ImageProps {
-    id: number;
-    url: string;
-    hash: string;
-    nsfw: boolean;
-    cryCount: number;
-    laughCount: number;
-    likeCount: number;
-    heartCount: number;
-    commentCount: number;
-    dislikeCount: number;
-    width: number;
-    height: number;
-    canSee: boolean;
-}
+import {Image as ImageProps} from "../../Types/ImageType"
 
 interface DropdownMenuProps extends ImageProps {
     handleCanSee: () => void;

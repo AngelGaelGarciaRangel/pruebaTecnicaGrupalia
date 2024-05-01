@@ -1,5 +1,5 @@
 import React from "react";
-import { Image as ImageComponent } from "./Image";
+import { Image} from "./Image";
 
 interface Image {
   id: number;
@@ -51,7 +51,7 @@ const MasonryGrid: React.FC<MasonryGridProps> = ({ images, columnCount }) => {
       {columns.map((column, index) => (
         <div key={index} className="flex-1">
           {column.map((image) => (
-            <ImageComponent key={image.id} {...image} />
+            <Image key={image.id} {...image} />
           ))}
         </div>
       ))}

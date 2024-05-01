@@ -13,11 +13,18 @@ interface ImageProps {
     dislikeCount: number;
     width: number;
     height: number;
+    canSee: boolean;
 }
 
-const DropdownMenu: FC<ImageProps> = (imageData) => {
+interface DropdownMenuProps extends ImageProps {
+  handleCanSee: () => void;
+}
 
-    const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+const DropdownMenu: FC<DropdownMenuProps> = (props) => {
+  const { handleCanSee, ...imageData } = props;
+
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
         setDropdownOpen(!isDropdownOpen);
@@ -46,6 +53,11 @@ const DropdownMenu: FC<ImageProps> = (imageData) => {
         }
     };
 
+    // Function to toggle canSee field
+    const handleToggleCanSee = () => {
+      handleCanSee();
+    };
+
     return (
         <div className="relative">
             <button onClick={toggleDropdown} className="absolute top-0 right-0 m-2 bg-transparent">
@@ -58,14 +70,18 @@ const DropdownMenu: FC<ImageProps> = (imageData) => {
                     {/* Download button */}
                     <button
                         onClick={handleDownload}
-                        className="block w-full text-left px-4 py-2 bg-[#4169e1] hover:bg-[#3957d7] rounded-t-md rounded-b-none"
+                        className="block w-full text-left px-4 py-2 bg-[#4169e1] hover:bg-[#3957d7] rounded-t-md rounded-b-none text-white"
                     >
                         Download
                     </button>
-                    <button className="block w-full text-left px-4 py-2 bg-[#4169e1] hover:bg-[#3957d7] rounded-none">
-                        Button 2
+                    {/* Hide button*/}
+                    <button
+                        onClick={handleToggleCanSee}
+                        className={`block w-full text-left px-4 py-2 bg-[#4169e1] hover:bg-[#3957d7] rounded-none text-white`}
+                    >
+                        {imageData.canSee ? 'Hide' : 'Show'}
                     </button>
-                    <button className="block w-full text-left px-4 py-2 bg-[#4169e1] hover:bg-[#3957d7] rounded-b-md rounded-t-none">
+                    <button className="block w-full text-left px-4 py-2 bg-[#4169e1] hover:bg-[#3957d7] rounded-t-none rounded-b-md text-white">
                         Button 3
                     </button>
                 </div>

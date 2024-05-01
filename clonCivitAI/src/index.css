@@ -73,3 +73,10 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.blur-shadow {
+  filter: blur(4px); 
+  box-shadow: 0 4px 8px rgba(65, 105, 225, 0.5);
+}
+
+

@@ -14,6 +14,7 @@ interface Image {
   dislikeCount: number;
   width: number;
   height: number;
+  canSee: boolean;
 }
 
 interface MasonryGridProps {

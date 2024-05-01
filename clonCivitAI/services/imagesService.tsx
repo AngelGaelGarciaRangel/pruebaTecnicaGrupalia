@@ -13,6 +13,7 @@ interface Image {
   dislikeCount: number;
   width: number;
   height: number;
+  canSee: boolean;
 }
 
 const getImages = async (pageParam: number): Promise<Image[]> => {
@@ -37,6 +38,7 @@ const getImages = async (pageParam: number): Promise<Image[]> => {
         dislikeCount: item.stats.dislikeCount,
         width: fixedWidth,
         height: newHeight,
+        canSee: true,
       };
     });
 

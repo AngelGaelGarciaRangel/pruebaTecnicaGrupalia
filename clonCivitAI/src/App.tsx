@@ -14,7 +14,24 @@ interface Image {
   heartCount: number;
   commentCount: number;
   dislikeCount: number;
+  height: number;
 }
+
+//Function to create the Masonry Layout (images of different heights)
+function createMasonryLayout(images: Image[], columnCount: number): Image[][] {
+  const columns: Image[][] = Array.from({ length: columnCount }, () => []);
+  images.forEach((image) => {
+      const shortestColumnIndex = columns.reduce((shortestIndex, column, index) => {
+          const currentHeight = column.reduce((sum, img) => sum + img.height, 0);
+          const shortestHeight = columns[shortestIndex].reduce((sum, img) => sum + img.height, 0);
+          return currentHeight < shortestHeight ? index : shortestIndex;
+      }, 0);
+      columns[shortestColumnIndex].push(image);
+  });
+
+  return columns;
+}
+
 
 function App() {
   const [images, setImages] = useState<Image[]>([]);
@@ -25,15 +42,23 @@ function App() {
     };
     imagesFetch();
   },[]);
+
+  const columnCount = 4; 
+  const columns = createMasonryLayout(images, columnCount);
+
   return (
-    <div>
-        {images.map(image => (
-            <div key={image.id}>
-              <Image {...image}/>
+        <div className="container mx-auto px-4">
+            <div className="flex space-x-4">
+                {columns.map((column, index) => (
+                    <div key={index} className="flex-1">
+                        {column.map((image) => (
+                            <Image {...image}/>
+                        ))}
+                    </div>
+                ))}
             </div>
-        ))}
-    </div>
-);
+        </div>
+    );
 }
 
 export default App

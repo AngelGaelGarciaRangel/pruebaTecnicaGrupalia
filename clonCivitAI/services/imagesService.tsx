@@ -11,6 +11,7 @@ interface Image {
   heartCount: number;
   commentCount: number;
   dislikeCount: number;
+  height: number;
 }
 
 const getImages = async (): Promise<Image[]> => {
@@ -28,6 +29,7 @@ const getImages = async (): Promise<Image[]> => {
       heartCount: item.stats.heartCount,
       commentCount: item.stats.commentCount,
       dislikeCount: item.stats.dislikeCount,
+      height: 200,
     }));
     console.log(images);
     return images;

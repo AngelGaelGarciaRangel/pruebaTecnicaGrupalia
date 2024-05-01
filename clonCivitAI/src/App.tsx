@@ -2,6 +2,7 @@ import "./App.css";
 import { getImages } from "../services/imagesService.tsx";
 import { useState, useEffect } from "react";
 import { Image } from "./components/Image.tsx";
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 interface Image {
   id: number;

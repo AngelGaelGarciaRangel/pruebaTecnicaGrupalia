@@ -1,6 +1,7 @@
 import './App.css'
-import {getImages} from "../services/imagesService.ts";
+import {getImages} from "../services/imagesService.tsx";
 import { useState, useEffect } from 'react';
+import { Image } from './components/Image.tsx';
 
 interface Image {
   id: number;
@@ -28,7 +29,7 @@ function App() {
     <div>
         {images.map(image => (
             <div key={image.id}>
-                <img src={image.url} alt={image.hash} />
+              <Image {...image}/>
             </div>
         ))}
     </div>

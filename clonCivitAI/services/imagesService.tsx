@@ -14,9 +14,9 @@ interface Image {
   height: number;
 }
 
-const getImages = async (): Promise<Image[]> => {
+const getImages = async (pageParam: number): Promise<Image[]> => {
   try {
-    const answer = await axios.get("https://civitai.com/api/v1/images");
+    const answer = await axios.get(`https://civitai.com/api/v1/images?limit=12&page=${pageParam}`);
     const items = answer.data.items;
     const images: Image[] = items.map((item: any) => ({
       id: item.id,
@@ -31,7 +31,6 @@ const getImages = async (): Promise<Image[]> => {
       dislikeCount: item.stats.dislikeCount,
       height: 200,
     }));
-    console.log(images);
     return images;
   } catch (error) {
     console.log("Error fetching images", error);

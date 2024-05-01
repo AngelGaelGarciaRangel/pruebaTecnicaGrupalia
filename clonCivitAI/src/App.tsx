@@ -1,7 +1,8 @@
 import "./App.css";
-import { getImages } from "../services/imagesService.tsx";
-import { useState, useEffect } from "react";
-import { Image } from "./components/Image.tsx";
+import { getImages } from "../services/imagesService";
+import { useInfiniteQuery } from "react-query";
+import { useEffect, useCallback } from "react";
+import { Image as ImageComponent } from "./components/Image";
 
 interface Image {
   id: number;
@@ -17,7 +18,7 @@ interface Image {
   height: number;
 }
 
-//Function to create the Masonry Layout (images of different heights)
+// Function to create the Masonry Layout (images of different heights)
 function createMasonryLayout(images: Image[], columnCount: number): Image[][] {
   const columns: Image[][] = Array.from({ length: columnCount }, () => []);
   images.forEach((image) => {
@@ -39,31 +40,54 @@ function createMasonryLayout(images: Image[], columnCount: number): Image[][] {
 }
 
 function App() {
-  const [images, setImages] = useState<Image[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    const imagesFetch = async () => {
-      setLoading(true);
-      const imagesData = await getImages();
-      setImages(imagesData);
-      setLoading(false);
-    };
-    imagesFetch();
-  }, []);
-
   const columnCount = 4;
+
+  // useInfiniteQuery for infinite scroll effect
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useInfiniteQuery("images", ({ pageParam = 1 }) => getImages(pageParam), {
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.length === 12 ? allPages.length + 1 : undefined;
+      },
+    });
+
+  const images = data?.pages.flat() || [];
   const columns = createMasonryLayout(images, columnCount);
+
+  const loadMore = useCallback(() => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  // Scroll event listener to identify where to call the loadMore function
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 500
+      ) {
+        loadMore();
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [loadMore]);
 
   return (
     <div className="container mx-auto px-4">
-      {loading ? (
+      {/* Conditional rendering for initial loading */}
+      {isLoading ? (
         <div className="flex flex-col items-center justify-center h-64">
           <div className="text-3xl animate-spin">⏳</div>
           <p className="font-medium mt-2">Please wait</p>
           <p className="font-bold">Loading images...</p>
         </div>
       ) : (
-        <div>
+        <>
           <h1 className="text-center">CivitAI Clone</h1>
           <p>
             This page is a clone of the existing{" "}
@@ -79,12 +103,20 @@ function App() {
             {columns.map((column, index) => (
               <div key={index} className="flex-1">
                 {column.map((image) => (
-                  <Image key={image.id} {...image} />
+                  <ImageComponent key={image.id} {...image} />
                 ))}
               </div>
             ))}
           </div>
-        </div>
+
+          {/* Loading message for fetching next page */}
+          {isFetchingNextPage && (
+            <div className="text-center">
+              <div className="text-3xl animate-spin">⏳</div>
+              <p className="font-bold">Loading more images...</p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
